@@ -1,0 +1,21 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: pdc-server
+    env_file:
+      - ./server/.env
+    ports:
+      - "3001:3001"
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: pdc-client
+    env_file:
+      - ./client/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server

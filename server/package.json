@@ -9,6 +9,7 @@
   "dependencies": {
     "cors": "latest",
     "dotenv": "latest",
-    "express": "latest"
+    "express": "latest",
+    "node-zookeeper-client": "latest"
   }
 }

@@ -49,12 +49,15 @@ services:
       context: ./zookeeper-node
       dockerfile: Dockerfile
     container_name: zk-node-1
-    env_file:
-      - ./zookeeper-node/.env
     environment:
       NODE_ID: node-1
       ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
       ZK_ELECTION_PATH: /election
+      ZK_REGISTRY_ROOT: /services
+      SERVICE_NAME: worker
+      SERVICE_NODE_ID: node-1
+      SERVICE_HOST: zk-node-1
+      SERVICE_PORT: 4000
     ports:
       - "4001:4000"
     depends_on:
@@ -67,12 +70,15 @@ services:
       context: ./zookeeper-node
       dockerfile: Dockerfile
     container_name: zk-node-2
-    env_file:
-      - ./zookeeper-node/.env
     environment:
       NODE_ID: node-2
       ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
       ZK_ELECTION_PATH: /election
+      ZK_REGISTRY_ROOT: /services
+      SERVICE_NAME: worker
+      SERVICE_NODE_ID: node-2
+      SERVICE_HOST: zk-node-2
+      SERVICE_PORT: 4000
     ports:
       - "4002:4000"
     depends_on:
@@ -85,12 +91,15 @@ services:
       context: ./zookeeper-node
       dockerfile: Dockerfile
     container_name: zk-node-3
-    env_file:
-      - ./zookeeper-node/.env
     environment:
       NODE_ID: node-3
       ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
       ZK_ELECTION_PATH: /election
+      ZK_REGISTRY_ROOT: /services
+      SERVICE_NAME: worker
+      SERVICE_NODE_ID: node-3
+      SERVICE_HOST: zk-node-3
+      SERVICE_PORT: 4000
     ports:
       - "4003:4000"
     depends_on:
@@ -105,6 +114,13 @@ services:
     container_name: pdc-server
     env_file:
       - ./server/.env
+    environment:
+      ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
+      ZK_REGISTRY_ROOT: /services
+      SERVICE_NAME: server
+      SERVICE_NODE_ID: server-1
+      SERVICE_HOST: server
+      SERVICE_PORT: 3001
     ports:
       - "3001:3001"
   client:

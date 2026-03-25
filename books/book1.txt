@@ -1,0 +1,4 @@
+Distributed systems are a field of computer science that studies distributed computing.
+A distributed system consists of multiple components located on different machines.
+These components communicate and coordinate their actions by passing messages.
+Fault tolerance and scalability are key goals of distributed architectures.

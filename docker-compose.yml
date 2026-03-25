@@ -58,6 +58,9 @@ services:
       SERVICE_NODE_ID: node-1
       SERVICE_HOST: zk-node-1
       SERVICE_PORT: 4000
+      BOOKS_DIR: /books
+    volumes:
+      - ./books:/books:ro
     ports:
       - "4001:4000"
     depends_on:
@@ -79,6 +82,9 @@ services:
       SERVICE_NODE_ID: node-2
       SERVICE_HOST: zk-node-2
       SERVICE_PORT: 4000
+      BOOKS_DIR: /books
+    volumes:
+      - ./books:/books:ro
     ports:
       - "4002:4000"
     depends_on:
@@ -100,6 +106,9 @@ services:
       SERVICE_NODE_ID: node-3
       SERVICE_HOST: zk-node-3
       SERVICE_PORT: 4000
+      BOOKS_DIR: /books
+    volumes:
+      - ./books:/books:ro
     ports:
       - "4003:4000"
     depends_on:
@@ -121,6 +130,9 @@ services:
       SERVICE_NODE_ID: server-1
       SERVICE_HOST: server
       SERVICE_PORT: 3001
+      BOOKS_DIR: /books
+    volumes:
+      - ./books:/books:ro
     ports:
       - "3001:3001"
   client:

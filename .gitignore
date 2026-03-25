@@ -18,6 +18,9 @@ client/build/
 client/.react-router/
 server/build/
 server/dist/
+zookeeper-node/node_modules/
+zookeeper-node/build/
+zookeeper-node/dist/
 
 # IDE
 .idea/

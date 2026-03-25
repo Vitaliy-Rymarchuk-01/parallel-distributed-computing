@@ -1,0 +1,14 @@
+{
+  "name": "zookeeper-node",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "latest",
+    "express": "latest",
+    "node-zookeeper-client": "latest"
+  }
+}

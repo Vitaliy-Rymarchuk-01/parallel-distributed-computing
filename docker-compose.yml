@@ -1,4 +1,103 @@
 services:
+  zk1:
+    image: zookeeper:3.9.4
+    container_name: zk1
+    hostname: zk1
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    ports:
+      - "2181:2181"
+    expose:
+      - "2888"
+      - "3888"
+    volumes:
+      - zk1_data:/data
+
+  zk2:
+    image: zookeeper:3.9.4
+    container_name: zk2
+    hostname: zk2
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    ports:
+      - "2182:2181"
+    expose:
+      - "2888"
+      - "3888"
+    volumes:
+      - zk2_data:/data
+
+  zk3:
+    image: zookeeper:3.9.4
+    container_name: zk3
+    hostname: zk3
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    ports:
+      - "2183:2181"
+    expose:
+      - "2888"
+      - "3888"
+    volumes:
+      - zk3_data:/data
+
+  zk-node-1:
+    build:
+      context: ./zookeeper-node
+      dockerfile: Dockerfile
+    container_name: zk-node-1
+    env_file:
+      - ./zookeeper-node/.env
+    environment:
+      NODE_ID: node-1
+      ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
+      ZK_ELECTION_PATH: /election
+    ports:
+      - "4001:4000"
+    depends_on:
+      - zk1
+      - zk2
+      - zk3
+
+  zk-node-2:
+    build:
+      context: ./zookeeper-node
+      dockerfile: Dockerfile
+    container_name: zk-node-2
+    env_file:
+      - ./zookeeper-node/.env
+    environment:
+      NODE_ID: node-2
+      ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
+      ZK_ELECTION_PATH: /election
+    ports:
+      - "4002:4000"
+    depends_on:
+      - zk1
+      - zk2
+      - zk3
+
+  zk-node-3:
+    build:
+      context: ./zookeeper-node
+      dockerfile: Dockerfile
+    container_name: zk-node-3
+    env_file:
+      - ./zookeeper-node/.env
+    environment:
+      NODE_ID: node-3
+      ZK_CONNECTION_STRING: zk1:2181,zk2:2181,zk3:2181
+      ZK_ELECTION_PATH: /election
+    ports:
+      - "4003:4000"
+    depends_on:
+      - zk1
+      - zk2
+      - zk3
+
   server:
     build:
       context: ./server
@@ -19,3 +118,8 @@ services:
       - "3000:3000"
     depends_on:
       - server
+
+volumes:
+  zk1_data:
+  zk2_data:
+  zk3_data:

@@ -7,7 +7,6 @@ export function createApp({ workerDiscovery } = {}) {
   const app = express();
 
   app.use(express.json({ limit: "2mb" }));
-  у;
   app.use(
     cors({
       origin: [

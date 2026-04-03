@@ -9,6 +9,12 @@ const registryRoot = process.env.ZK_REGISTRY_ROOT || "/services";
 
 const port = Number(process.env.PORT) || 8080;
 
+const app = createApp();
+
+app.listen(port, "0.0.0.0", () => {
+  console.log(`server listening on http://localhost:${port}`);
+});
+
 const registry = new ServiceRegistry({
   connectionString: zkConnectionString,
   registryRoot,
@@ -24,15 +30,11 @@ const workerDiscovery = new ServiceDiscovery({
   serviceName: "worker",
 });
 
-try {
-  await registry.start();
-  await workerDiscovery.start();
-} catch (error) {
-  console.error("failed to init zookeeper registry/discovery", error);
-}
-
-const app = createApp({ workerDiscovery });
-
-app.listen(port, () => {
-  console.log(`server listening on http://localhost:${port}`);
-});
+void (async () => {
+  try {
+    await registry.start();
+    await workerDiscovery.start();
+  } catch (error) {
+    console.error("failed to init zookeeper registry/discovery", error);
+  }
+})();

@@ -7,13 +7,13 @@ export function createApp({ workerDiscovery } = {}) {
   const app = express();
 
   app.use(express.json({ limit: "2mb" }));
-
+  у;
   app.use(
     cors({
       origin: [
         "http://localhost:3000",
         "http://localhost:5173",
-        "https://pdc-client.vercel.app",
+        "https://parallel-distributed-computing.vercel.app",
       ],
     }),
   );

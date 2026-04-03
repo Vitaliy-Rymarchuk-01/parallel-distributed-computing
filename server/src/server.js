@@ -7,7 +7,7 @@ import { ServiceRegistry } from "./service-registry.js";
 const zkConnectionString = process.env.ZK_CONNECTION_STRING || "localhost:2181";
 const registryRoot = process.env.ZK_REGISTRY_ROOT || "/services";
 
-const port = Number(process.env.PORT) || 3001;
+const port = Number(process.env.PORT) || 8080;
 
 const registry = new ServiceRegistry({
   connectionString: zkConnectionString,

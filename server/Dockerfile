@@ -8,7 +8,6 @@ RUN npm install
 
 COPY src /app/src
 
-ENV PORT=3001
-EXPOSE 3001
+EXPOSE 8080
 
 CMD ["npm", "run", "start"]
